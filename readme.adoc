@@ -1,0 +1,88 @@
+# SEW-Test, 4AHITM
+
+URL: http....
+
+Checken Sie das Start-Projekt aus GitHub-Classroom aus.
+Das Projekt unterteilt sich in ein Quarkus-Backend und ein Angular-Frontend.
+
+Es handelt sich dabei um eine einfache Webapplikation zur Erfassung von Zählerständen (z.B. jährliche Meldung des Wertes für Wasseruhren).
+
+Das Backend ist bereits vollständig implementiert und stellt folgende Schnittstelle zur Verfügung:
+
+* GET `/api/zaehler/list_all` +
+  Liefert alle gespeicherten Einträge zurück.
+
+* GET `/api/zaehler/list/{zaehlernr}` +
+  Liefert alle Einträge zu der übergebenen Zählernummer zurück
+
+* GET `/api/zaehler/{zaehlernr}/{datum}` +
+  Liefert das Zähler-Objekt zu dem übergebenen Schlüsselpaar
+
+* GET `/api/zaehler/last/{zaehlernr}` +
+  Liefert den letzten Zählerstand zu der übergebenen Zählernummer (Double)
+
+* POST `/api/zaehler` +
+  `{ "zaehlernr": 999, "datum": "2022-06-06", "zaehlerstand": 100}` +
+  Speichert die übergebenen Zählerdaten in der Datenbank ab
+
+
+Erweitern Sie das Frontend wie folgt:
+
+## Aufgabe 1: Navigation integrieren
+
+Sie finden im Ausgangsprojekt bereits einen Menubalken mit 3 Einträgen.
+Sorgen Sie dafür, dass über die Menueinträge wie folgt navigiert werden kann:
+
+* **Gesamtliste:** Zeigt die Komponente `OverallComponent` an
+* **Details zu Zählernummer:**  Zeigt die Komponente `DetailComponent` an
+* **Erfassung eines Zählerstandes:** Zeigt die Komponente `EditComponent` an
+* **jeder andere (ungültige) Eintrag:** Zeigt die Komponente `OverallComponent` an
+
+
+
+## Aufgabe 2: HttpService anlegen
+
+Erstellen Sie einen Service mit dem Namen `HttpService`. Dieser soll alle Zugriffe auf die REST-Schnittstelle von den nachfolgenden Aufgaben kapseln.
+
+Ein passendes Interface (`Zähler`) für die REST-Schnittstelle finden Sie im Ordner `model`.
+
+
+## Aufgabe 3: Gesamtliste anzeigen
+
+Erweitern Sie die Komponente `OverallComponent` dahingehend, dass alle gespeicherten Einträge in einer Tabelle angezeigt werden.
+
+Das Grundgerüst der Tabelle inkl. einem Beispieldatensatz ist bereits im Template vorhanden.
+
+Das Datum soll dabei in dem bei uns üblichen Format `dd.MM.yyyy` angezeigt werden. Verwenden Sie dazu eine entsprechende Pipe.
+
+
+## Aufgabe 4: Details zu Zählernummer
+
+Erweitern Sie die `DetailComponent` so, dass eine Zählernummer eingegeben werden kann. Über den Button `Aktualisieren` sollen dann die für diese Zählernummer gespeicherten Datensätze vom Backend geholt und in der Tabelle angezeigt werden.
+
+Optional soll es möglich sein, die Zählernummer als Parameter mitgeben zu können. Wird diese in der URL mit angegeben (`/detail/<zählernr>`), soll die übergebene Nummer im Eingabefeld übernommen werden und sofort die Liste abgeholt werden.
+
+
+## Aufgabe 5: Neuen Zählerstand erfassen
+
+Erweitern Sie die Komponente `EditComponent`, wobei für die Erfassung `ReactiveForms` zu verwenden sind.
+
+Das Basisformular ist bereits vorhanden und muss noch entsprechend angepasst werden.
+
+.Zu berücksichtigende Validierungen:
+* Zählernummer: Pflichtfeld, mind. 3 Stellen
+* Datum: Pflichtfeld, Format dd.MM.yyyy  (zB: 1.1.2000, 02.02.2000, ...)
+* Zählerstand: Pflichtfeld
+
+Der Speichern-Button darf nur angezeigt werden, wenn keine Fehler im Formular vorhanden sind. Zeigen Sie die bereits integrierten Fehlermeldungen an, sofern ein Feld bereits betreten wurde und der Wert aber noch ungültig ist!
+
+Nachdem eine Zählernummer erfasst bzw. geändert wurde und das Feld verlassen wurde, soll der zuletzt gespeicherte Zählerwert aus dem Backend abgeholt werden und im Feld Zählerstand eingetragen werden.
+
+
+Wird der Button `Speichern` gedrückt, sollen die Daten an das Backend gesendet werden.
+
+Leiten Sie im Anschluss auf die `DetailComponent` weiter, wobei die eingegebene Zählernummer in der URL mit übergeben werden soll.
+
+
+
+
